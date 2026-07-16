@@ -1,0 +1,11 @@
+Algoritmo "EXERCICIO 6"
+
+Var
+i : inteiro
+
+
+Inicio
+para i de 10 ate 1 passo -1 faca
+escreva (i)
+fimpara
+Fimalgoritmo

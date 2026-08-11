@@ -1,0 +1,15 @@
+tela.fill ((0,0,0))
+-> Pinta o fundo da tela a cada frame.
+
+if moveu == True:       
+    posicaoatual = [x, y]
+    listacobra.append(posicaoatual)
+-> quando o true é ativado o código pega a posição atual do "x" e "y" e joga para dentro do listacobra 
+
+if len(listacobra) > (tamanhoinicial + pontos):
+        del listacobra [0]
+-> se a "listacobra" for maior que o tamanho iniciar somado com os pontos , ela exclui a parte mais antiga a "cauda"
+
+for coordernada in listacobra:
+    ret_vermelho = pygame.draw.rect(tela, (255, 0, 0), (coordernada, coordernada, 30, 30))
+-> vai desenhando um quadrado vermelho 30 x 30 por cada pixel que passa 

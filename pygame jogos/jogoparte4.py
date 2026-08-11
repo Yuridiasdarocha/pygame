@@ -8,16 +8,17 @@ from random import randint
 pygame.init()
 
 # dimensões da janela
-largura = 640
-altura = 480
+largura = 1920
+altura = 1080
 
 # posição inicial do jogador (centro)
 x = largura / 2
 y = altura / 2
 
 # fontes para texto
-fontepontos = pygame.font.Font(None, 25)
-fontederrota = pygame.font.Font(None, 50)
+fontepontos = pygame.font.SysFont("Arial", 25)
+fontegameover = pygame.font.SysFont("Arial", 40)
+fonteexibirpontuacao = pygame.font.SysFont("Arial", 40)
 
 # título da janela
 pygame.display.set_caption("Primeiro jogo com Pygame")
@@ -37,9 +38,10 @@ pontos = int(0)
 
 # cor do texto de pontuação
 corbrancopontos = (255,255,255)
+corvermelho = (255,0,0)
 
 # Define tamanho inicial da 'cobra'
-tamanhoinicial = 10
+tamanhoinicial = 1
 # Lista para armazenar as posições do corpo da cobra
 listacobra = []
 
@@ -71,19 +73,19 @@ while True:
         # Marca que houve movimento
         moveu = True
     # Verifica se tecla 'D' ou DIREITA foi pressionada
-    if pygame.key.get_pressed()[K_d] or pygame.key.get_pressed()[K_RIGHT]:
+    elif pygame.key.get_pressed()[K_d] or pygame.key.get_pressed()[K_RIGHT]:
         # Move o jogador 20 pixels para a direita
         x = x + 20
         # Marca que houve movimento
         moveu = True
     # Verifica se tecla 'W' ou CIMA foi pressionada
-    if pygame.key.get_pressed()[K_w] or pygame.key.get_pressed()[K_UP]:
+    elif pygame.key.get_pressed()[K_w] or pygame.key.get_pressed()[K_UP]:
         # Move o jogador 20 pixels para cima
         y = y - 20
         # Marca que houve movimento
         moveu = True
     # Verifica se tecla 'S' ou BAIXO foi pressionada
-    if pygame.key.get_pressed()[K_s] or pygame.key.get_pressed()[K_DOWN]:
+    elif pygame.key.get_pressed()[K_s] or pygame.key.get_pressed()[K_DOWN]:
         # Move o jogador 20 pixels para baixo
         y = y + 20
         # Marca que houve movimento
@@ -116,11 +118,13 @@ while True:
         pontos = pontos + 1
 
     # Verifica se a cobra saiu da tela (colisão com as bordas)
-    if x < 0 or x + 10 > largura or y < 0 or y + 10 > altura:
+    if x < 0 or x + 30 > largura or y < 0 or y + 30 > altura:
         # Renderiza mensagem de derrota com a pontuação final
-        textoderrota = fontederrota.render (f"Você perdeu, sua pontuação: {pontos}", True, corbrancopontos) 
+        textoexibirpontuacao = fonteexibirpontuacao.render (f"Você conseguiu {pontos} pontos", True, corbrancopontos)
+        textogameover = fontegameover.render (f"GAME OVER", True, corvermelho) 
         # Desenha o texto de derrota na tela
-        tela.blit(textoderrota, (10, 200))
+        tela.blit(textogameover, (200, 150))
+        tela.blit(textoexibirpontuacao, (120, 200))
         # Atualiza a tela para mostrar a mensagem
         pygame.display.update()
         # Registra o tempo atual em milissegundos

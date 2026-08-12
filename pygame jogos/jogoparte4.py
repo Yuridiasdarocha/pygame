@@ -8,8 +8,8 @@ from random import randint
 pygame.init()
 
 # dimensões da janela
-largura = 1920
-altura = 1080
+largura = 640
+altura = 480
 
 # posição inicial do jogador (centro)
 x = largura / 2

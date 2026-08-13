@@ -41,7 +41,7 @@ corbrancopontos = (255,255,255)
 corvermelho = (255,0,0)
 
 # Define tamanho inicial da 'cobra'
-tamanhoinicial = 1
+tamanhoinicial = 2
 # Lista para armazenar as posições do corpo da cobra
 listacobra = []
 
@@ -107,6 +107,35 @@ while True:
         ret_vermelho = pygame.draw.rect(tela, (255, 0, 0), (coordernada [0], coordernada [1], 30, 30))
     # Desenha o alvo (retângulo verde)
     ret_azul = pygame.draw.rect(tela, (0, 255, 0), (x_azul, y_azul, 50, 50))
+
+    # Verifica se a cobra colidiu com seu próprio corpo
+    if len (listacobra) > 1:
+        # Define a cabeça da cobra como a posição atual
+        cabeca = [x, y]
+        # Verifica se a cabeça está em alguma posição do corpo (exceto a cabeça)
+        if cabeca in listacobra[:-1]:
+            # Renderiza mensagem de derrota com a pontuação final
+            textoexibirpontuacao = fonteexibirpontuacao.render (f"Você conseguiu {pontos} pontos", True, corbrancopontos)
+            # Renderiza texto "GAME OVER" em vermelho
+            textogameover = fontegameover.render (f"GAME OVER", True, corvermelho) 
+            # Desenha o texto "GAME OVER" na tela
+            tela.blit(textogameover,(200, 150))
+            # Desenha o texto da pontuação final na tela
+            tela.blit(textoexibirpontuacao,(120, 200))
+            # Atualiza a tela para mostrar a mensagem
+            pygame.display.update()
+            # Registra o tempo atual em milissegundos
+            alarmetempo = pygame.time.get_ticks()
+            # Aguarda 3 segundos antes de fechar
+            while pygame.time.get_ticks() - alarmetempo < 3000:
+                # Verifica eventos durante a espera
+                for event in pygame.event.get():
+                    # Se clicou para fechar, sai imediatamente
+                    if event.type == QUIT:
+                        exit()
+            # Fecha o jogo após 3 segundos
+            exit()
+
 
     # Verifica colisão entre cobra e alvo
     if ret_vermelho.colliderect(ret_azul):

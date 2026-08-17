@@ -29,18 +29,6 @@ relogio = pygame.time.Clock()
 # janela do jogo
 tela = pygame.display.set_mode((largura, altura))
 
-#teladefundo
-fundo = pygame.image.load("imagemfundo.png").convert()
-
-#sons
-somupgrade = pygame.mixer.Sound("somupgrade.mp3")
-somupgrade.set_volume(0.1)
-pygame.mixer.music.load("somdefundo.mp3")
-pygame.mixer.music.set_volume(0.1)
-pygame.mixer.music.play(-1)
-somgameover = pygame.mixer.Sound("somgameover.mp3")
-somgameover.set_volume(0.5)
-
 # posição inicial do alvo (aleatória)
 x_azul = randint(40, 600)
 y_azul = randint(50, 430)
@@ -53,7 +41,7 @@ corbrancopontos = (255,255,255)
 corvermelho = (255,0,0)
 
 # Define tamanho inicial da 'cobra'
-tamanhoinicial = 1
+tamanhoinicial = 2
 # Lista para armazenar as posições do corpo da cobra
 listacobra = []
 
@@ -61,9 +49,8 @@ listacobra = []
 while True:
     # Define FPS do jogo em 10 frames por segundo
     relogio.tick(10)
-    # Preenche a tela com o fundo
-    tela.blit(fundo, (0, 0))
-
+    # Preenche a tela com cor preta (apaga frame anterior)
+    tela.fill((0, 0, 0))
     # Cria um retângulo vazio para colisão com a cobra
     ret_vermelho = pygame.Rect(0, 0, 0, 0)
     # Renderiza o texto de pontuação
@@ -135,7 +122,6 @@ while True:
             tela.blit(textogameover,(200, 150))
             # Desenha o texto da pontuação final na tela
             tela.blit(textoexibirpontuacao,(120, 200))
-            somgameover.play()
             # Atualiza a tela para mostrar a mensagem
             pygame.display.update()
             # Registra o tempo atual em milissegundos
@@ -159,7 +145,6 @@ while True:
         y_azul = randint(50, 430)
         # Aumenta a pontuação em 1
         pontos = pontos + 1
-        somupgrade.play()
 
     # Verifica se a cobra saiu da tela (colisão com as bordas)
     if x < 0 or x + 30 > largura or y < 0 or y + 30 > altura:
@@ -169,7 +154,6 @@ while True:
         # Desenha o texto de derrota na tela
         tela.blit(textogameover, (200, 150))
         tela.blit(textoexibirpontuacao, (120, 200))
-        somgameover.play()
         # Atualiza a tela para mostrar a mensagem
         pygame.display.update()
         # Registra o tempo atual em milissegundos
